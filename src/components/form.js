@@ -119,7 +119,7 @@ const Form = () => {
                     </span>
                     <div className="flex flex-col gap-3">{numCards}</div>
                     <a
-                        className="-mb-4 mt-3 rounded-md inline-block w-fit bg-white text-blue-600 border border-blue-600 px-4 py-2 text-xs text-white"
+                        className="-mb-4 mt-3 rounded-md inline-block w-fit bg-white text-blue-600 border border-blue-600 px-4 py-2 text-xs"
                         href="/"
                         onClick={addCard}
                     >
