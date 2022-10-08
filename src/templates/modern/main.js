@@ -1,24 +1,9 @@
 import {
-    Document,
-    Page,
     Text,
     View,
-    StyleSheet,
-    Font,
-    Image,
 } from "@react-pdf/renderer";
-import { styles } from "../../App";
 import RTLText from "./components/rtl_text";
-import Footer from "./footer";
 
-function fixPersianNumber(number) {
-    number = parseInt(number).toLocaleString("fa-IR");
-    number.split("٬").reverse();
-    number.map((item) => {
-        item.split().reverse().join("");
-    });
-    return "1234";
-}
 
 // Create Document Component
 const Main = ({ products }) => {

@@ -17,6 +17,7 @@ const Form = () => {
     let invoiceNum =
         today.split("/")[0].slice(2) + "-" + today.split("/")[1] + "-" + 40;
 
+    const [totalPrice, setTotalPrice] = useState(0)
     const [generatePdf, setGeneratePdf] = useState(false);
     const [invoiceNumber, setInvoiceNumber] = useState(invoiceNum);
     const [date, setDate] = useState(today);
@@ -37,6 +38,12 @@ const Form = () => {
         } else {
             allData.push(getData);
         }
+
+        setTotalPrice(0)
+        allData.forEach((element) => {
+          console.log(element.id, element.price);
+            setTotalPrice(totalPrice + (element.price * element.quantity))
+        });
     }
 
     function addCard(e) {
@@ -157,7 +164,7 @@ const Form = () => {
                         </a>
                     </div>
                     <span>
-                        {(100000000).toLocaleString("fa-IR") + " تومان"}
+                        {(totalPrice).toLocaleString("fa-IR") + " تومان"}
                     </span>
                 </div>
             </form>
