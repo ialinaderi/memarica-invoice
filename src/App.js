@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    Font,
+    Image,
+    PDFDownloadLink,
+} from "@react-pdf/renderer";
+import Header from "./templates/modern/header";
+import { PDFViewer } from "@react-pdf/renderer";
+import Sidebar from "./templates/modern/sidebar";
+import Main from "./templates/modern/main";
+import Footer from "./templates/modern/footer";
+import Form from "./components/form";
+import MyDocument from "./document";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+    <>
+        <Form />
+        
+        
+    </>
+);
 
 export default App;
