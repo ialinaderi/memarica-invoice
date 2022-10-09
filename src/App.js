@@ -1,28 +1,20 @@
-import logo from "./logo.svg";
 import "./App.css";
-import {
-    Document,
-    Page,
-    Text,
-    View,
-    StyleSheet,
-    Font,
-    Image,
-    PDFDownloadLink,
-} from "@react-pdf/renderer";
-import Header from "./templates/modern/header";
-import { PDFViewer } from "@react-pdf/renderer";
-import Sidebar from "./templates/modern/sidebar";
-import Main from "./templates/modern/main";
-import Footer from "./templates/modern/footer";
 import Form from "./components/form";
-import MyDocument from "./document";
 
 const App = () => (
     <>
-        <Form />
-        
-        
+        <nav className="border-b h-14 flex w-full px-4 py-2 gap-4 shadow bg-gray-50">
+            <h1
+                className={
+                    "flex items-center text-primary font-bold  w-full text-center justify-center"
+                }
+            >
+                صدور پیش‌فاکتور معماریکا
+            </h1>
+        </nav>
+        <div className="container max-w-xl">
+            <Form />
+        </div>
     </>
 );
 

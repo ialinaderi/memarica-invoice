@@ -51,7 +51,7 @@ function ProductCard({ getData, id }) {
         <div
             className={
                 "bg-gray-100 transition-all duration-400 p-5 rounded-lg w-full border" +
-                (productName && price && quantity && " border-blue-600")
+                (price && quantity && " border-primary")
             }
         >
             <Input
@@ -63,7 +63,7 @@ function ProductCard({ getData, id }) {
                 type={"text"}
                 inputClassName={"bg-white"}
             />
-            <div className={!productName && "h-0 overflow-hidden"}>
+            <div className={!productName && !price && !quantity && "hidden"}>
                 <div className="flex gap-3 mt-4">
                     <Input
                         value={brand}
@@ -98,31 +98,6 @@ function ProductCard({ getData, id }) {
                         inputClassName={"bg-white"}
                     />
                     <div className="flex-1 flex flex-col flex-wrap justify-between">
-                        {/* <RadioItem
-                            onChange={unitChangeHandler}
-                            checked={true}
-                            id={"m2" + id}
-                            label={"مترمربع"}
-                            name={"unit" + id}
-                        />
-                        <RadioItem
-                            onChange={unitChangeHandler}
-                            id={"shakhe" + id}
-                            label={"شاخه"}
-                            name={"unit" + id}
-                        />
-                        <RadioItem
-                            onChange={unitChangeHandler}
-                            id={"mtool" + id}
-                            label={"متر طول"}
-                            name={"unit" + id}
-                        />
-                        <RadioItem
-                            onChange={unitChangeHandler}
-                            id={"num" + id}
-                            label={"عدد"}
-                            name={"unit" + id}
-                        /> */}
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             htmlFor={id}
@@ -142,7 +117,7 @@ function ProductCard({ getData, id }) {
                 </div>
             </div>
             {price && quantity && (
-                <div className="flex justify-between bg-blue-600 text-white text-xs mt-5 -mx-5 -mb-5 py-2 px-5 rounded-br-md rounded-bl-md font-bold">
+                <div className="flex justify-between bg-primary text-white text-xs mt-5 -mx-5 -mb-5 py-2 px-5 rounded-br-md rounded-bl-md font-bold">
                     <span>مجموع</span>
                     <span>
                         {(

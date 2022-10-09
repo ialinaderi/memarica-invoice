@@ -62,7 +62,7 @@ export default function MyDocument({
             <Page size="A4" style={styles.body}>
                 <View style={{ display: "flex" }}>
                     <Image
-                        src={"/assets/memarica-logo-bg.jpg"}
+                        src={"../public/assets/memarica-logo-bg.jpg"}
                         style={{
                             marginTop: -100,
                             marginLeft: -100,

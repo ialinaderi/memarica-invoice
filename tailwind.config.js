@@ -2,6 +2,11 @@
 module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
+        extend: {
+            colors: {
+                primary: "#6D7C69",
+            },
+        },
         container: {
             // you can configure the container to be centered
             center: true,
