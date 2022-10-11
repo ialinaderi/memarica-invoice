@@ -1,16 +1,9 @@
-import {
-    Text,
-    View,
-} from "@react-pdf/renderer";
+import { Text, View } from "@react-pdf/renderer";
 import RTLText from "./components/rtl_text";
-
 
 // Create Document Component
 const Main = ({ products }) => {
     let totalPrice = 0;
-    products = products.filter(function (value, index, arr) {
-        return value.productName && value.price && value.quantity;
-    });
     products.forEach((element) => {
         totalPrice += element.price * element.quantity;
     });
@@ -32,10 +25,10 @@ const Main = ({ products }) => {
         const productName = element.productName;
         const brand = element.brand;
         const unit = element.unit;
-        let quantity = parseInt(element.quantity).toLocaleString("en-US");
-        let price = parseInt(element.price).toLocaleString("en-US");
+        let quantity = parseFloat(element.quantity).toLocaleString("en-US");
+        let price = parseFloat(element.price).toLocaleString("en-US");
         let total = (
-            parseInt(element.price) * parseInt(element.quantity)
+            parseFloat(element.price) * parseFloat(element.quantity)
         ).toLocaleString("en-US");
 
         return (
@@ -93,7 +86,7 @@ const Main = ({ products }) => {
                         // backgroundColor: "blue",
                     }}
                 >
-                    <Text>{price !== 'NaN' ? price : "—"}</Text>
+                    <Text>{price !== "NaN" ? price : "—"}</Text>
                 </View>
                 <View
                     style={{
@@ -105,7 +98,7 @@ const Main = ({ products }) => {
                         // backgroundColor: "blue",
                     }}
                 >
-                    <RTLText>{quantity !== 'NaN' ? quantity : "—"}</RTLText>
+                    <RTLText>{quantity !== "NaN" ? quantity : "—"}</RTLText>
                     <View
                         style={{
                             flexDirection: "row",
@@ -126,7 +119,7 @@ const Main = ({ products }) => {
                         // backgroundColor: "blue",
                     }}
                 >
-                    <Text>{total !== 'NaN' ? total : '—'}</Text>
+                    <Text>{total !== "NaN" ? total : "—"}</Text>
                 </View>
             </View>
         );

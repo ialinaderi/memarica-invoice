@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "./input";
 import RadioItem from "./radio_item";
 
@@ -9,17 +9,26 @@ let data = {
     quantity: "",
     unit: "",
 };
-function ProductCard({ getData, id }) {
-    const [productName, setProductName] = useState("");
-    data.productName = productName;
-    const [brand, setBrand] = useState("");
-    data.brand = brand;
-    const [price, setPrice] = useState("");
-    data.price = price;
-    const [quantity, setQuantity] = useState("");
-    data.quantity = quantity;
-    const [unit, setUnit] = useState("مترمربع");
-    data.unit = unit;
+function toInt(data = "") {
+    data = data.toString();
+    const regex = /[0-9]/g;
+    data = parseFloat((data.match(regex) || []).join(""));
+    return isNaN(data) ? "" : data;
+}
+function ProductCard({ setData = {}, getData, id }) {
+    const _productName = setData.productName;
+    const _brand = setData.brand;
+    const _price = setData.price;
+    const _quantity = setData.quantity;
+    const _unit = setData.unit ? setData.unit : 'مترمربع';
+    console.log(setData);
+
+    const isInitialMount = useRef(true);
+    const [productName, setProductName] = useState(_productName);
+    const [brand, setBrand] = useState(_brand);
+    const [price, setPrice] = useState(toInt(_price));
+    const [quantity, setQuantity] = useState(toInt(_quantity));
+    const [unit, setUnit] = useState(_unit);
 
     function productNameChangeHandler(e) {
         setProductName(e.target.value);
@@ -30,8 +39,12 @@ function ProductCard({ getData, id }) {
         data.brand = e.target.value;
     }
     function priceChangeHandler(e) {
-        setPrice(e.target.value);
-        data.price = e.target.value;
+        e.preventDefault();
+        let { value = "" } = e.target;
+        value = toInt(value);
+        setPrice(value.toLocaleString("en-US"));
+        data.price = value;
+        console.log(value);
     }
     function quantityChangeHandler(e) {
         setQuantity(e.target.value);
@@ -42,9 +55,17 @@ function ProductCard({ getData, id }) {
         data.unit = e.target.value;
     }
     useEffect(() => {
-        return () => {
-            getData({ ...data, id });
-        };
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+        } else {
+            const _price = toInt(price);
+            const _quantity = toInt(quantity);
+            console.log(_price);
+            // Your useEffect code here to be run on update
+            getData({ id, productName, brand, price: _price, quantity: _quantity, unit });
+            console.log("RUN");
+        }
+        return () => {};
     });
 
     return (
@@ -80,8 +101,8 @@ function ProductCard({ getData, id }) {
                         label={"قیمت"}
                         id={"price" + id}
                         ltr={true}
-                        placeholder={"1500000"}
-                        type={"number"}
+                        placeholder={"1,500,000"}
+                        type={"tel"}
                         inputClassName={"bg-white"}
                     />
                 </div>
@@ -108,10 +129,14 @@ function ProductCard({ getData, id }) {
                             onChange={unitChangeHandler}
                             className="block w-full text-gray-700 bg-white placeholder:text-gray-300 border border-gray-300 focus:border-gray-500 rounded py-[0.57rem] px-4 leading-tight focus:outline-none focus:bg-white"
                         >
-                            <option>مترمربع</option>
-                            <option>عدد</option>
-                            <option>متر طول</option>
-                            <option>شاخه</option>
+                            <option selected={unit === "مترمربع"}>
+                                مترمربع
+                            </option>
+                            <option selected={unit === "عدد"}>عدد</option>
+                            <option selected={unit === "متر طول"}>
+                                متر طول
+                            </option>
+                            <option selected={unit === "شاخه"}>شاخه</option>
                         </select>
                     </div>
                 </div>
@@ -121,7 +146,7 @@ function ProductCard({ getData, id }) {
                     <span>مجموع</span>
                     <span>
                         {(
-                            parseInt(price) * parseFloat(quantity)
+                            parseFloat(data.price) * parseFloat(quantity)
                         ).toLocaleString("fa-IR") + " تومان"}
                     </span>
                 </div>

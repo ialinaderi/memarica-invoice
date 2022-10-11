@@ -13,6 +13,7 @@ import Sidebar from "./templates/modern/sidebar";
 import Main from "./templates/modern/main";
 import Footer from "./templates/modern/footer";
 import Form from "./components/form";
+import { uuid } from "uuidv4";
 
 Font.register({
     family: "Dana",
@@ -57,6 +58,38 @@ export default function MyDocument({
     gender,
     products,
 }) {
+    products = products.filter(function (value, index, arr) {
+        return value.productName && value.price && value.quantity;
+    });
+    products.reverse();
+
+    let recentHistory = localStorage.getItem("history");
+    !recentHistory && (recentHistory = '[]');
+    recentHistory = JSON.parse(recentHistory);
+    const objIndex = recentHistory.findIndex(
+        (obj) => obj.invoiceNumber === invoiceNumber
+    );
+
+    if (objIndex >= 0) {
+        recentHistory[objIndex] = {
+            invoiceNumber,
+            date,
+            name,
+            gender,
+            products,
+        };
+    } else {
+        recentHistory.push({
+            invoiceNumber,
+            date,
+            name,
+            gender,
+            products,
+        });
+    }
+
+    localStorage.setItem("history", JSON.stringify(recentHistory));
+
     return (
         <Document>
             <Page size="A4" style={styles.body}>

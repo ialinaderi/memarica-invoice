@@ -1,21 +1,22 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
 import Form from "./components/form";
+import { faCoffee, faHistory } from "@fortawesome/free-solid-svg-icons";
+import Header from "./components/header";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
+import HomePage from "./HomePage";
+import HistoryPage from "./HistoryPage";
 
-const App = () => (
-    <>
-        <nav className="border-b h-14 flex w-full px-4 py-2 gap-4 shadow bg-gray-50">
-            <h1
-                className={
-                    "flex items-center text-primary font-bold  w-full text-center justify-center"
-                }
-            >
-                صدور پیش‌فاکتور معماریکا
-            </h1>
-        </nav>
-        <div className="container max-w-xl">
-            <Form />
-        </div>
-    </>
-);
+const App = () => {
+    return (
+        <Routes>
+            <Route path="/">
+                <Route index element={<HomePage />} />
+                <Route path="history" element={<HistoryPage />} />
+                <Route path="*" element={<h1>404</h1>} />
+            </Route>
+        </Routes>
+    );
+};
 
 export default App;
