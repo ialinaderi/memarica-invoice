@@ -11,7 +11,7 @@ let data = {
 };
 function toInt(data = "") {
     data = data.toString();
-    const regex = /[0-9]/g;
+    const regex = /[+]?([0-9]*[.])?[0-9]+/g;
     data = parseFloat((data.match(regex) || []).join(""));
     return isNaN(data) ? "" : data;
 }
